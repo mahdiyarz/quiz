@@ -60,7 +60,7 @@ class _QuizAppState extends State<QuizApp> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: _checkAnswer,
+                  onPressed: () => _checkAnswer(true),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Colors.blueGrey.shade700),
@@ -71,7 +71,7 @@ class _QuizAppState extends State<QuizApp> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: _checkAnswer,
+                  onPressed: () => _checkAnswer(false),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Colors.blueGrey.shade700),
@@ -100,7 +100,13 @@ class _QuizAppState extends State<QuizApp> {
     );
   }
 
-  _checkAnswer() {}
+  _checkAnswer(bool checkResult) {
+    if (checkResult == questionBank[nextQuestion].isCorrect) {
+      debugPrint("is correct");
+    } else {
+      debugPrint("incorrect");
+    }
+  }
 
   void _nextQuestion() {
     setState(() {
