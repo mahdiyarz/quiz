@@ -60,7 +60,7 @@ class _QuizAppState extends State<QuizApp> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () => _checkAnswer(true),
+                  onPressed: () => _checkAnswer(true, context),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Colors.blueGrey.shade700),
@@ -71,7 +71,7 @@ class _QuizAppState extends State<QuizApp> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _checkAnswer(false),
+                  onPressed: () => _checkAnswer(false, context),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Colors.blueGrey.shade700),
@@ -100,10 +100,23 @@ class _QuizAppState extends State<QuizApp> {
     );
   }
 
-  _checkAnswer(bool checkResult) {
+  _checkAnswer(bool checkResult, BuildContext context) {
     if (checkResult == questionBank[nextQuestion].isCorrect) {
+      var snackBar = const SnackBar(
+        duration: Duration(milliseconds: 500),
+        backgroundColor: Colors.green,
+        content: Text("Correct"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
       debugPrint("is correct");
     } else {
+      var snackBar = const SnackBar(
+        duration: Duration(milliseconds: 500),
+        backgroundColor: Colors.redAccent,
+        content: Text("Incorrect"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       debugPrint("incorrect");
     }
   }
