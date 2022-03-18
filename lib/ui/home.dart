@@ -10,9 +10,11 @@ class QuizApp extends StatefulWidget {
 
 class _QuizAppState extends State<QuizApp> {
   List questionBank = [
-    Question('This questionText is TRUE and you answer true or false', true),
-    Question('questionText2', false),
+    Question('This questionText1 is TRUE and you answer true or false', true),
+    Question('This questionText2 is FALSE and you answer true or false', false),
+    Question('This questionText3 is FALSE and you answer true or false', false),
   ];
+  int nextQuestion = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +49,7 @@ class _QuizAppState extends State<QuizApp> {
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.all(15),
               child: Text(
-                questionBank[0].questionText,
+                questionBank[nextQuestion].questionText,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16.9,
@@ -85,7 +87,9 @@ class _QuizAppState extends State<QuizApp> {
                     backgroundColor:
                         MaterialStateProperty.all(Colors.blueGrey.shade700),
                   ),
-                  child: const Icon(Icons.arrow_forward_ios_rounded),
+                  child: nextQuestion < questionBank.length - 1
+                      ? const Icon(Icons.arrow_forward_ios_rounded)
+                      : const Icon(Icons.restart_alt),
                 ),
               ],
             ),
@@ -98,5 +102,13 @@ class _QuizAppState extends State<QuizApp> {
 
   _checkAnswer() {}
 
-  void _nextQuestion() {}
+  void _nextQuestion() {
+    setState(() {
+      if (nextQuestion < questionBank.length - 1) {
+        nextQuestion++;
+      } else {
+        nextQuestion = 0;
+      }
+    });
+  }
 }
