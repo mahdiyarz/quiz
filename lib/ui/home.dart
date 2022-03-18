@@ -108,6 +108,11 @@ class _QuizAppState extends State<QuizApp> {
         content: Text("Correct"),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      setState(() {
+        if (nextQuestion < questionBank.length - 1) {
+          nextQuestion++;
+        } else {}
+      });
 
       debugPrint("is correct");
     } else {
